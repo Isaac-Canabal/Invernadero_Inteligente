@@ -84,9 +84,8 @@ py main.py
 
 ### Formato de datos ESP32 → PC
 ```
-TEMP:25.5,HUM:45.2,HUM_DIG:0
+TEMP:25.5,HUM:45.2
 ```
-*(Donde `HUM` es el porcentaje de humedad analógico y `HUM_DIG` es el estado digital del sensor: 0 para húmedo y 1 para seco).*
 
 ### Comandos PC → ESP32
 ```
@@ -99,8 +98,7 @@ SET_UMBRAL:30     # Configurar umbral de humedad al 30%
 
 ```
 DHT11/22          → GPIO 4
-Humedad suelo A0  → GPIO 34 (ADC)
-Humedad suelo D0  → GPIO 35 (Entrada Digital)
+Humedad suelo     → GPIO 34 (ADC)
 Relé bomba        → GPIO 5
 LCD SDA           → GPIO 21
 LCD SCL           → GPIO 22

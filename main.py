@@ -144,7 +144,7 @@ class InvernaderoInteligente(QMainWindow):
     def leer_datos_serial(self):
         """
         Se leen los datos enviados por el ESP32 a través del puerto serial.
-        Se espera recibir datos en formato: TEMP:25.5,HUM:45.2 o TEMP:25.5,HUM:45.2,HUM_DIG:0
+        Se espera recibir datos en formato: TEMP:25.5,HUM:45.2
         """
         if not self.serial.canReadLine():
             return
@@ -158,27 +158,12 @@ class InvernaderoInteligente(QMainWindow):
                 temperatura = float(partes[0].split(':')[1])
                 humedad = float(partes[1].split(':')[1])
                 
-                # Se lee el estado digital del sensor de suelo (D0) si está presente
-                humedad_digital = None
-                for parte in partes:
-                    if "HUM_DIG:" in parte:
-                        try:
-                            humedad_digital = int(parte.split(':')[1])
-                        except ValueError:
-                            pass
-                
                 # Se actualiza la interfaz
                 self.ui.lcd_temperatura.display(f"{temperatura:.1f}")
                 self.ui.lcd_humedad.display(f"{humedad:.1f}")
                 
-                # Mostrar el estado digital del sensor en la barra de estado
-                if humedad_digital is not None:
-                    estado_d0 = "Suelo Seco (D0=1)" if humedad_digital == 1 else "Suelo Húmedo (D0=0)"
-                    self.ui.statusbar.showMessage(f"Conexión activa | Estado digital del suelo: {estado_d0}")
-                    print(f"Lectura serial -> Temp: {temperatura}°C, Humedad Suelo: {humedad}%, D0: {estado_d0}")
-                else:
-                    self.ui.statusbar.showMessage("Conexión activa")
-                    print(f"Lectura serial -> Temp: {temperatura}°C, Humedad Suelo: {humedad}%")
+                self.ui.statusbar.showMessage("Conexión activa")
+                print(f"Lectura serial -> Temp: {temperatura}°C, Humedad Suelo: {humedad}%")
                 
                 # Se verifica si se debe activar el riego automático
                 riego_activado = 0
