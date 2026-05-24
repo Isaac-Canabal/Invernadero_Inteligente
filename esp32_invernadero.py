@@ -18,7 +18,7 @@ import dht
 import time
 
 # Configuración de pines
-sensor_temp_hum = dht.DHT11(Pin(4))  # O DHT22 según el sensor
+sensor_temp_hum = dht.DHT22(Pin(4))  # Instanciado para DHT22
 
 # Sensor de humedad del suelo con 4 pines (VCC, GND, D0, A0)
 # A0 se conecta al pin analógico GPIO 34 (ADC)
